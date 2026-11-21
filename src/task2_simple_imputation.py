@@ -1,4 +1,5 @@
 import pandas as pd
+from pandas.core.interchange.dataframe_protocol import DataFrame
 
 
 def impute_missing_values(df):
@@ -11,7 +12,10 @@ def impute_missing_values(df):
     Returns:
     pd.DataFrame: DataFrame with missing values imputed.
     """
-    
+    n = df.shape[0]
+    df["A"] = df["A"].fillna(df["A"].sum() / df["A"].count())
+    df["B"] = df["B"].fillna(df["B"].sort_values()[n // 2])
+    df["C"] = df["C"].fillna(df["C"].mode()[0])
     return df
 
 

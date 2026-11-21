@@ -14,8 +14,13 @@ def target_encode_smoothing(df, column, target, k):
     Returns:
     pd.DataFrame: DataFrame with an additional encoded column.
     """
-    
+    stats = df.groupby(column)[target].agg(["count", "mean"])
+
+    smooth = (stats["count"] * stats["mean"] + k * df[target].mean()) / (stats["count"] + k)
+
+    df[f"{column}_encoded"] = df[column].map(smooth)
     return df
+
 
 
 # Example data

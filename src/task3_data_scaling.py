@@ -13,8 +13,11 @@ def apply_min_max_scaling(df, columns):
     Returns:
     pd.DataFrame: DataFrame with new columns for Min-Max Scaled values.
     """
+    df = df.copy()
+    scaler = MinMaxScaler()
+    df[columns] = scaler.fit_transform(df[columns])
 
-    return df_min_max_scaled
+    return df
 
 
 def apply_standard_scaling(df, columns):
@@ -29,7 +32,11 @@ def apply_standard_scaling(df, columns):
     pd.DataFrame: DataFrame with new columns for Standard Scaled values.
     """
 
-    return df_standard_scaled
+    df = df.copy()
+    scaler = StandardScaler()
+    df[columns] = scaler.fit_transform(df[columns])
+
+    return df
 
 
 def apply_robust_scaling(df, columns):
@@ -44,7 +51,11 @@ def apply_robust_scaling(df, columns):
     pd.DataFrame: DataFrame with new columns for Robust Scaled values.
     """
 
-    return df_robust_scaled
+    df = df.copy()
+    scaler = RobustScaler()
+    df[columns] = scaler.fit_transform(df[columns])
+
+    return df
 
 
 # Example data

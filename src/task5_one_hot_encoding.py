@@ -13,6 +13,9 @@ def group_rare_categories(df, column, threshold):
     Returns:
     pd.DataFrame: DataFrame with rare categories grouped as 'Other'.
     """
+    counts = df[column].value_counts()
+    mask = counts[counts >= threshold].index
+    df[column] = df[column].where(df[column].isin(mask), "Other")
 
     return df
 
@@ -28,7 +31,9 @@ def one_hot_encode(df, column):
     Returns:
     pd.DataFrame: DataFrame with one-hot encoded columns.
     """
-    return None
+
+    df = pd.get_dummies(df)
+    return df
 
 
 # Example data
